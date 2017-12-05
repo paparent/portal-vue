@@ -13,6 +13,7 @@ export default {
   name: 'portal',
   props: {
     /* global HTMLElement */
+    clone: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     name: { type: String, default: () => String(pid++) },
     order: { type: Number, default: 0 },
@@ -118,7 +119,7 @@ export default {
   render (h) {
     const children = this.$slots.default || []
     const Tag = this.tag
-    if (children.length && this.disabled) {
+    if (children.length && (this.disabled || this.clone)) {
       return children.length <= 1 && this.slim
         ? children[0]
         : (<Tag>{children}</Tag>)
